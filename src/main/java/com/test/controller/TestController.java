@@ -11,4 +11,10 @@ public class TestController {
 
         return "index";
     }
+
+    @RequestMapping("/target")
+    public String target(){
+
+        return "target";
+    }
 }
