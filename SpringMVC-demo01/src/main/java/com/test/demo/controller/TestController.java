@@ -6,10 +6,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class TestController {
 
-    @RequestMapping("/")
-    public String index(){
+// 已经被mvc的view-controller解析——见SpringMVC.xml
+//    @RequestMapping("/")
+//    public String index(){
+//
+//        return "index";
+//    }
 
-        return "index";
+    @RequestMapping("/test_view")
+    public String testView(){
+
+        return "test_view";
     }
 
 }
