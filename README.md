@@ -278,3 +278,98 @@ public class ExtendModelMap extends ModelMap implements Model {}
 public class BindingAwareModelMap extends ExtendedModelMap{}
 
 ```
+
+### 7.向session域共享数据
+```java
+@RequestMapping("/testSession")
+public String testSession(HttpSession session){
+
+    session.setAttribute("testSessionScope", "hello, session");
+
+    return "success";
+}
+```
+
+### 8.向application域共享数据
+```java
+    @RequestMapping("/testApplication")
+    public String testApplication(HttpSession session){
+
+        ServletContext application = session.getServletContext();
+        application.setAttribute("testApplicationScope", "hello, application");
+
+        return "success";
+    }
+```
+
+## SpringMVC的视图
+SpringMVC中视图是View接口，视图的作用是渲染数据，将模型Model中的数据展示给用户
+SpringMVC视图种类很多，默认有转发视图InternalResourceView和重定向视图RedirectView
+当工程引入jstl依赖，转发视图会自动转换为jstlView
+若使用的视图技术为Thymeleaf，在SpringMVC的配置文件中配置了Thymeleaf的视图解析器，由此视图解析器解析后所得到的是ThymeleafView
+
+### 1.ThymeleafView
+当控制器方法中所设置的视图名称没有任何前缀时，此时的视图名称会被SpringMVC配置文件中所配置的视图解析器解析，视图名称拼接视图前缀和视图后缀所得到的最终路径，会通过转发的方式实现跳转
+```java
+//Thymeleaf视图
+@RequestMapping("/testHello")
+public String testHello(){
+    
+    return "hello";
+    //转发视图
+    return "forward:/testHello";
+    //重定向视图，会改变地址栏中的地址
+    return "redirect:/testHello";
+}
+```
+### 3.视图控制器view-controller
+当控制器方法中，仅仅用来实现页面跳转，即只需要设置视图名称时，可以将处理器方法用view-controller标签进行展示
+```xml
+    <?xml version="1.0" encoding="UTF-8"?>
+    <beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       https://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/mvc
+       http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+    <!--
+        path:设置处理请求地址
+        view-name:设置请求地址所对应的视图名称
+     -->
+    <!-- 开启后@Controller注解会全部失效 -->
+    <mvc:view-controller path="/" view-name="index"></mvc:view-controller>
+
+    <!-- 开启MVC的注解驱动 需要和view-controller标签一起使用 -->
+    <mvc:annotation-driven />
+```
+当SpringMVC中设置任何一个view-controller时，其他控制器中的请求映射全部失效，此时需要在SpringMVC.xml文件中添加注解驱动
+
+```java
+    @RequestMapping("/testRedirect")
+    public String testRedirect(){
+
+        //重定向到testThymeleafView
+        return "redirect:/testThymeleafView";
+    }
+```
+重定向视图在解析时，会先将redirect:前缀去掉，然后会判断剩余部分是否为/开头，若是则会自动拼接上下文路径
+
+###4.视图控制器view-controller
+在控制器方法中，仅仅用来实现页面跳转，即只需要设置视图名称时，可以将处理器方法使用view-controller标签进行表示
+```xml
+
+    <mvc:view-controller path="/" view-name="index"></mvc:view-controller>
+```
+
+# 七、RESTFul
+## 1、RESTFul简介
+REST: Representational State Transfer，表现层资源状态转移
+
+## 2、RESTFul实现
+
+
