@@ -4,7 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="50def716-8d7a-46f6-b241-d6ec74f4ceda" name="Changes" comment="" />
+    <list default="true" id="50def716-8d7a-46f6-b241-d6ec74f4ceda" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/runConfigurations.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SpringMVC-demo01/target/classes/com/test/demo/controller/ScopeController.class" beforeDir="false" afterPath="$PROJECT_DIR$/SpringMVC-demo01/target/classes/com/test/demo/controller/ScopeController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SpringMVC-demo01/target/classes/com/test/demo/controller/TestController.class" beforeDir="false" afterPath="$PROJECT_DIR$/SpringMVC-demo01/target/classes/com/test/demo/controller/TestController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SpringMVC-demo01/target/classes/com/test/demo/controller/UserController.class" beforeDir="false" afterPath="$PROJECT_DIR$/SpringMVC-demo01/target/classes/com/test/demo/controller/UserController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SpringMVC-demo01/target/classes/com/test/demo/controller/ViewController.class" beforeDir="false" afterPath="$PROJECT_DIR$/SpringMVC-demo01/target/classes/com/test/demo/controller/ViewController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SpringMVC-jsp/target/classes/com/mvc/controller/JspController.class" beforeDir="false" afterPath="$PROJECT_DIR$/SpringMVC-jsp/target/classes/com/mvc/controller/JspController.class" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -30,6 +40,16 @@
       <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
     </file-type-list>
   </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="userSettingsFile" value="D:\maven\apache-maven-3.8.4-bin\apache-maven-3.8.4\conf\settings.xml" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
   <component name="ProjectId" id="23Hjwri7pitWuCU8uEPqB7XfzjM" />
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
@@ -44,11 +64,11 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/SpringMVC-demo01/src/main/webapp" />
-    <property name="project.structure.last.edited" value="Modules" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/SpringMVC-jsp/src/main/webapp" />
+    <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="settings.editor.selected.configurable" value="com.poratu.idea.plugins.tomcat.setting.TomcatSettingConfigurable" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -58,20 +78,44 @@
       <recent name="D:\Repository\SpringMVC-jsp\src\main\webapp" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Smart Tomcat.SpringMVC-jsp">
     <configuration name="SpringMVC-demo01" type="com.poratu.idea.plugins.tomcat" factoryName="SMART_TOMCAT_FACTORY">
       <option name="adminPort" value="8005" />
       <option name="contextPath" value="/SpringMVC-demo01" />
-      <option name="docBase" value="D:\Repository\SpringMVC-demo01\src\main\webapp" />
-      <option name="envOptions" />
+      <option name="docBase" value="$PROJECT_DIR$/SpringMVC-demo01/src/main/webapp" />
+      <option name="envOptions">
+        <map />
+      </option>
       <option name="passParentEnvironmentVariables" value="true" />
       <option name="port" value="8080" />
       <option name="tomcatInfo">
         <TomcatInfo>
-          <option name="name" value="Apache Tomcat/8.5.73" />
+          <option name="name" value="Apache Tomcat/8.5.75" />
           <option name="number" value="0" />
-          <option name="path" value="D:\Study\apache-tomcat-8.5.73" />
-          <option name="version" value="8.5.73.0" />
+          <option name="path" value="D:\tomcat\apache-tomcat-8.5.75-windows-x86\apache-tomcat-8.5.75" />
+          <option name="version" value="8.5.75.0" />
+        </TomcatInfo>
+      </option>
+      <option name="vmOptions" value="" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="SpringMVC-jsp" type="com.poratu.idea.plugins.tomcat" factoryName="SMART_TOMCAT_FACTORY">
+      <option name="adminPort" value="8005" />
+      <option name="contextPath" value="/SpringMVC-jsp" />
+      <option name="docBase" value="D:\WorkSpace\SpringMVC\SpringMVC-jsp\src\main\webapp" />
+      <option name="envOptions">
+        <map />
+      </option>
+      <option name="passParentEnvironmentVariables" value="true" />
+      <option name="port" value="8080" />
+      <option name="tomcatInfo">
+        <TomcatInfo>
+          <option name="name" value="Apache Tomcat/8.5.75" />
+          <option name="number" value="0" />
+          <option name="path" value="D:\tomcat\apache-tomcat-8.5.75-windows-x86\apache-tomcat-8.5.75" />
+          <option name="version" value="8.5.75.0" />
         </TomcatInfo>
       </option>
       <option name="vmOptions" value="" />
@@ -99,6 +143,10 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <list>
+      <item itemvalue="Smart Tomcat.SpringMVC-demo01" />
+      <item itemvalue="Smart Tomcat.SpringMVC-jsp" />
+    </list>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -121,9 +169,12 @@
         </entry>
       </map>
     </option>
-    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>
