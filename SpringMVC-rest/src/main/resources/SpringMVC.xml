@@ -11,6 +11,7 @@
        http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
     <!--扫描控制层组件-->
+    <context:component-scan base-package="com.solo.rest"></context:component-scan>
 
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/WEB-INF/templates/"></property>
