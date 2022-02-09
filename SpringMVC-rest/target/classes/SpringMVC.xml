@@ -10,8 +10,13 @@
        http://www.springframework.org/schema/mvc
        http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
-    <!--扫描控制层组件-->
-    <context:component-scan base-package="com.test.demo.controller"></context:component-scan>
+    <!--扫描组件-->
+    <context:component-scan base-package="com.solo.rest"></context:component-scan>
+
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/templates/"></property>
+        <property name="suffix" value=".jsp"></property>
+    </bean>
 
     <!-- 配置Thymeleaf视图解析器 -->
     <bean id="viewResolver" class="org.thymeleaf.spring5.view.ThymeleafViewResolver">
@@ -33,15 +38,9 @@
         </property>
     </bean>
 
-    <!--
-        path:设置处理请求地址
-        view-name:设置请求地址所对应的视图名称
-     -->
+    <!-- 配置视图控制器 -->
     <mvc:view-controller path="/" view-name="index"></mvc:view-controller>
-    <mvc:view-controller path="/test_view" view-name="test_view"></mvc:view-controller>
-    <mvc:view-controller path="/test_rest" view-name="test_rest"></mvc:view-controller>
-
-    <!-- 开启MVC的注解驱动 需要和view-controller标签一起使用 -->
-    <mvc:annotation-driven />
+    <!-- 开启mvc注解驱动 -->
+    <mvc:annotation-driven></mvc:annotation-driven>
 
 </beans>
