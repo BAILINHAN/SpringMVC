@@ -42,11 +42,37 @@
     <mvc:default-servlet-handler/>
 
     <!-- 开启MVC的注解驱动 需要和view-controller标签一起使用 -->
-    <mvc:annotation-driven />
+    <mvc:annotation-driven>
+        <mvc:message-converters>
+            <!-- 处理响应中文乱码 -->
+            <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+                <property name="defaultCharset" value="UTF-8"/>
+                <property name="supportedMediaTypes">
+                    <list>
+                        <value>text/html</value>
+                        <value>application/json</value>
+                    </list>
+                </property>
+            </bean>
+        </mvc:message-converters>
+
+    </mvc:annotation-driven>
 
     <!-- 配置文件上传解析器,将上传的文件封装为MultipartFile对象 -->
     <!-- 在SpringMVC中bean是根据id获取，不是根据类型获取 -->
     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"></bean>
 
+    <!-- 配置拦截器 会拦截所有请求 -->
+    <mvc:interceptors>
+<!--        <bean class="com.solo.dispatcher.interceptors.FirstInterceptor"></bean>-->
+<!--        <ref bean="firstInterceptor"/>-->
+        <mvc:interceptor>
+            <!-- 需要拦截的路径 /*:表示一层目录 /**:表示拦截所有目录-->
+            <mvc:mapping path="/**"/>
+            <!-- 排除拦截的路径 -->
+            <mvc:exclude-mapping path="/"/>
+            <ref bean="firstInterceptor" />
+        </mvc:interceptor>
+    </mvc:interceptors>
 
 </beans>

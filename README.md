@@ -38,7 +38,7 @@
 
 </web-app>
 ```
---- 
+---
 
 ## 二、将控制器作为SpringMVC中的一个IOC组件
 **1. 通过注解 + 扫描的方式来配置控制器**
@@ -371,5 +371,195 @@ public String testHello(){
 REST: Representational State Transfer，表现层资源状态转移
 
 ## 2、RESTFul实现
+```java
+/**
+     * 使用RESTFul模拟用户资源的增删改查
+     * /user  GET  查询所有用户信息
+     * /user/1  GET  根据用户Id查询所有用户信息
+     * /user  POST  添加用户信息
+     * /user/1  DELETE  删除用户信息
+     * /user  PUT  修改用户信息
+     */
+    @RequestMapping(value = "/user", method = RequestMethod.GET)
+    public String getAllUser(){
+        System.out.println("查询所有用户信息");
+        return "success";
+    }
+
+    @RequestMapping(value = "/user/{id}", method = RequestMethod.GET)
+    public String getUserById(){
+        System.out.println("根据Id查询用户信息");
+        return "success";
+    }
+
+    @RequestMapping(value = "/user", method = RequestMethod.POST)
+    public String insertUser(String userName, String passWord){
+        System.out.println("添加用户信息:" + userName +"," + passWord);
+        return "success";
+    }
+
+    @RequestMapping(value = "/user", method = RequestMethod.PUT)
+    public String updateUser(String userName, String passWord){
+        System.out.println("修改用户信息:" + userName +"," + passWord);
+        return "success";
+    }
+
+```
+## 3、配置HttpMethodFilter
+```xml
+    <!-- 配置HiddenHttpMethodFilter -->
+    <filter>
+        <filter-name>HiddenHttpMethodFilter</filter-name>
+        <filter-class>org.springframework.web.filter.HiddenHttpMethodFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>HiddenHttpMethodFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    
+    <!--编码过滤器需要早于HttpMethod过滤器进行配置-->
+```
+# 八、RESTFul案例
+## 1、准备工作
+和传统的CRUD一样，实现对员工信息的增删改查
+- 搭建环境
+- 准备实体类
+```java
+
+略
+```
+
+略
+
+# 九、文件上传和下载
+
+## 1.文件下载
+
+下载接口
+
+```java
+@RequestMapping("/testDown")
+    public ResponseEntity<byte[]> testResponseEntity(HttpSession session) throws IOException {
+
+        //获取servletContext对象
+        ServletContext servletContext = session.getServletContext();
+        //获取服务器中文件的真实路径
+        String realPath = servletContext.getRealPath("/static/img/clipboard.png");
+        System.out.println(realPath);
+        //创建输入流
+        InputStream is = new FileInputStream(realPath);
+        //创建字节数组
+        byte[] bytes = new byte[is.available()];
+        //读取流到字节数组中
+        is.read(bytes);
+        //创建HttpHeaders对象设置响应头信息
+        MultiValueMap<String, String> headers = new HttpHeaders();
+        //设置下载方式以及下载文件名字
+        headers.add("Content-Disposition", "attachment;filename=1.png");
+        //设置相应状态码
+        HttpStatus statusCode = HttpStatus.OK;
+        //创建ResponseEntity对象
+        ResponseEntity<byte[]> responseEntity = new ResponseEntity<>(bytes, headers, statusCode);
+        //关闭输入流
+        is.close();
+
+        return responseEntity;
+
+    }
+```
+
+前端页面
+
+```html
+<a th:href="@{/testDown}">下载clipboard.png</a>
+```
+
+## 2.文件上传
+
+上传接口
+
+```java
+@RequestMapping("/testUp")
+    public String testUp(MultipartFile photo, HttpSession session){
+
+        //通过ServletContext获取服务器中photo目录的路径
+        ServletContext servletContext = session.getServletContext();
+        String photoPath = servletContext.getRealPath("photo");
+        //获取上传文件的文件名
+        String fileName = photo.getOriginalFilename();
+        //获取上传文件的后缀名
+        String suffixName = fileName.substring(fileName.indexOf("."));
+        File file = new File(photoPath);
+        //判断photoPath路径是否存在
+        if(!file.exists()){
+            //不存在则创建目录
+            file.mkdir();
+        }
+        //文件上传
+        System.out.println(photo.getName());
+        System.out.println(photo.getOriginalFilename());
+
+        String finalPath = photoPath + File.separator + fileName;
+        try {
+            photo.transferTo(new File(finalPath));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return "success";
+    }
+```
+
+前端页面
+
+```html
+<!-- enctype="multipart/form-data"属性是将文件以二进制形式进行传输 -->
+<form th:action="@{/testUp}" method="post" enctype="multipart/form-data">
+    头像：<input type="file" name="photo"><br>
+    <input type="submit" value="上传">
+</form>
+```
+
+# 十、拦截器
+
+## 1、拦截器配置
+
+SpringMVC中的拦截器用于拦截控制器方法的执行
+
+SpringMVC中的拦截器需要实现HandlerInterceptor或者继承HandlerInterceptorAdapter类
+
+SpringMVC的拦截器必须在SpringMVC的配置文件中进行配置
+
+```xml
+<!-- 配置拦截器 会拦截所有请求 -->
+    <mvc:interceptors>
+<!--        <bean class="com.solo.dispatcher.interceptors.FirstInterceptor"></bean>-->
+<!--        <ref bean="firstInterceptor"/>-->
+        <mvc:interceptor>
+            <!-- 需要拦截的路径 /*:表示一层目录 /**:表示拦截所有目录-->
+            <mvc:mapping path="/**"/>
+            <!-- 排除拦截的路径 -->
+            <mvc:exclude-mapping path="/"/>
+            <ref bean="firstInterceptor" />
+        </mvc:interceptor>
+    </mvc:interceptors>
+<!-- 以上配置方式都可以通过ref或bean标签设置拦截器，通过mvc:mapping设置需要拦截的请求，通过mvc:exclude-mapping设置需要排除的请求，即不需要拦截的请求 -->
+    
+```
+
+## 2.拦截器的三个抽象方法
+
+SpringMVC中的拦截器有三个抽象方法
+
+preHandler: 控制器方法执行之前执行preHandler()，其boolean类型的返回值表示是否拦截或放行，返回true为放行，即调用控制器方法；返回false表示拦截，即不调用控制器方法
+
+postHandler: 控制器发放执行之后执行postHandler()
+
+afterComplation: 处理完视图和模型数据，渲染视图完毕后执行afterComplation()
+
+
+
+## 3.多个拦截器的执行顺序
+
 
 
