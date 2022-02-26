@@ -45,4 +45,9 @@
     <!-- 开启MVC的注解驱动 需要和view-controller标签一起使用 -->
     <mvc:annotation-driven />
 
+    <!-- 配置文件上传解析器,将上传的文件封装为MultipartFile对象 -->
+    <!-- 在SpringMVC中bean是根据id获取，不是根据类型获取 -->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"></bean>
+
+
 </beans>

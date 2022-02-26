@@ -6,12 +6,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.UUID;
 
 @RestController
 public class FileUpAndDownController {
@@ -43,6 +46,40 @@ public class FileUpAndDownController {
 
         return responseEntity;
 
+    }
+
+    @RequestMapping("/testUp")
+    public String testUp(MultipartFile photo, HttpSession session){
+
+        //通过ServletContext获取服务器中photo目录的路径
+        ServletContext servletContext = session.getServletContext();
+        String photoPath = servletContext.getRealPath("photo");
+        //获取上传文件的文件名
+        String fileName = photo.getOriginalFilename();
+        //获取上传文件的后缀名
+        String suffixName = fileName.substring(fileName.lastIndexOf("."));
+        //将UUID来作为文件的名字
+        String uuid = UUID.randomUUID().toString();
+        //将UUID和后缀名拼接后的结果作为最终的文件名，将-替换为""空字符串
+        fileName = uuid + suffixName.replaceAll("-", "");
+        File file = new File(photoPath);
+        //判断photoPath路径是否存在
+        if(!file.exists()){
+            //不存在则创建目录
+            file.mkdir();
+        }
+        //文件上传
+        System.out.println(photo.getName());
+        System.out.println(photo.getOriginalFilename());
+
+        String finalPath = photoPath + File.separator + fileName;
+        try {
+            photo.transferTo(new File(finalPath));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return "success";
     }
 
 }
